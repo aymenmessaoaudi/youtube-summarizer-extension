@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+      "module": "ESNext",             // ✅ ici le changement important
+      "target": "ESNext",
+      "moduleResolution": "Node",
+      "jsx": "react-jsx",
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "strict": true,
+      "types": ["chrome", "node"], // 👈 ici
+      "forceConsistentCasingInFileNames": true
+    },
+    "include": ["src"]
+  }
+  
