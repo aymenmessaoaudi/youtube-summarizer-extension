@@ -10,7 +10,6 @@ async function fetchSummary(videoId: string): Promise<string[] | null> {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ videoId, targetLang: "fr" }),
     });
-
     const data = await response.json();
     return data.summary.split("\n").filter((line: string) => Boolean(line));
   } catch (error) {
@@ -19,59 +18,84 @@ async function fetchSummary(videoId: string): Promise<string[] | null> {
   }
 }
 
+function formatLine(line: string): HTMLElement {
+  const li = document.createElement("li");
+  li.style.marginBottom = "4px";
+  li.style.overflow = "hidden";
+  li.style.textOverflow = "ellipsis";
+  li.style.whiteSpace = "normal";
+  li.style.display = "-webkit-box";
+  li.style.webkitBoxOrient = "vertical";
+  li.style.webkitLineClamp = "2";
+
+  const match = line.match(/^\s*[-•]?\s*(\*\*.+?\*\*)(.*)/);
+  if (match) {
+    const boldPart = match[1].replace(/\*\*/g, "").trim();
+    const rest = match[2].trim();
+
+    const spanBold = document.createElement("span");
+    spanBold.textContent = boldPart + " ";
+    spanBold.style.fontWeight = "500";
+    spanBold.style.fontFamily = `"Roboto", "Arial", sans-serif`;
+
+    const spanRest = document.createElement("span");
+    spanRest.textContent = rest;
+
+    li.appendChild(document.createTextNode("• "));
+    li.appendChild(spanBold);
+    li.appendChild(spanRest);
+  } else {
+    li.textContent = `• ${line}`;
+  }
+
+  return li;
+}
+
+function isDarkTheme(): boolean {
+  const bg = getComputedStyle(document.documentElement).getPropertyValue('--yt-spec-base-background').trim();
+  return bg === '#0f0f0f' || window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
+
 function injectSummary(summaryLines: string[]): void {
   const adsPanel = document.querySelector<HTMLElement>(
-    'ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-ads"]'
+    "ytd-engagement-panel-section-list-renderer[target-id='engagement-panel-ads']"
   );
-
   if (!adsPanel) {
     console.warn("Panneau de publicité non trouvé.");
     return;
   }
 
-  // Détecter thème sombre
-  const isDarkMode = document.documentElement.getAttribute("dark") !== null;
-
-  // Choisir les couleurs selon le thème
-  const backgroundColor = isDarkMode ? "#1e1e1e" : "#f9f9f9";
-  const borderColor = isDarkMode ? "#333" : "#ccc";
-  const textColor = isDarkMode ? "#f1f1f1" : "#000";
-
-  // Crée un conteneur pour le résumé
+  const dark = isDarkTheme();
   const container = document.createElement("div");
-  container.style.background = backgroundColor;
-  container.style.border = `1px solid ${borderColor}`;
-  container.style.padding = "10px";
-  container.style.marginBottom = "10px";
-  container.style.borderRadius = "8px";
-  container.style.color = textColor;
 
-  // Titre
+  container.style.background = "var(--yt-spec-badge-chip-background)";
+  container.style.borderRadius = "12px";
+  container.style.marginBottom = "16px";
+  container.style.padding = "12px";
+  container.style.fontFamily = `"Roboto", "Arial", sans-serif`;
+  container.style.fontSize = "1.4rem";
+  container.style.lineHeight = "2rem";
+  container.style.fontWeight = "400";
+  container.style.color = dark ? "rgb(255, 255, 255)" : "#000"; // 🎯 this is key
+
   const title = document.createElement("h3");
   title.textContent = "🧠 Résumé de la vidéo";
   title.style.marginBottom = "8px";
-  title.style.fontWeight = "bold";
-  title.style.color = textColor;
+  title.style.fontWeight = "500";
+  title.style.fontSize = "1.6rem";
+  title.style.color = dark ? "rgb(255, 255, 255)" : "#000";
+
   container.appendChild(title);
 
-  // Liste des points
   const ul = document.createElement("ul");
   summaryLines.forEach((line) => {
-    const li = document.createElement("li");
-    li.textContent = line;
-    li.style.marginBottom = "4px";
-    li.style.color = textColor;
-    ul.appendChild(li);
+    ul.appendChild(formatLine(line));
   });
 
   container.appendChild(ul);
-
-  // Injecte au-dessus du bloc pub
   adsPanel.parentElement?.insertBefore(container, adsPanel);
 }
 
-
-// Exécution automatique
 (async () => {
   const videoId = getVideoId();
   if (videoId) {
