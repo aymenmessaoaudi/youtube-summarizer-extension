@@ -41,6 +41,27 @@ export class SummaryContent {
     render(items) {
         this.hideLoading();
         this.contentList.innerHTML = '';
+        // Remove loading button if present
+        const loadingButton = this.element.querySelector('.youtube-summary-loading-btn');
+        if (loadingButton)
+            loadingButton.remove();
+        // Remove the loader from DOM
+        if (this.loadingElement && this.loadingElement.parentElement) {
+            this.loadingElement.parentElement.removeChild(this.loadingElement);
+        }
+        // Remove the bottom button container if present
+        let parent = this.element.parentElement;
+        if (parent) {
+            const btnContainer = parent.querySelector('.youtube-summary-button-container');
+            if (btnContainer)
+                btnContainer.remove();
+            // Expand the parent app container if possible
+            if (parent.classList.contains('youtube-summary-app') || parent.id === 'youtube-summary-container') {
+                parent.classList.add('expanded');
+                parent.style.height = '600px';
+                parent.style.maxHeight = '600px';
+            }
+        }
         items.forEach(item => {
             const li = document.createElement('li');
             li.className = 'youtube-summary-item';

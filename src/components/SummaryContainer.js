@@ -1,7 +1,7 @@
-import { ICONS } from '../constants';
 import { SummaryContent } from './SummaryContent';
 import { SummarizeButton } from './SummarizeButton';
 import { SummaryService } from '../services/SummaryService';
+import { Header } from './Header';
 export class SummaryContainer {
     container;
     header;
@@ -12,50 +12,11 @@ export class SummaryContainer {
     activeTab = 'summary';
     constructor(container) {
         this.container = container;
-        this.header = this.createHeader();
+        this.header = new Header((tab) => this.switchTab(tab)).getElement();
         this.content = new SummaryContent();
         this.button = new SummarizeButton(() => this.startSummarization());
         this.buttonContainer = this.createButtonContainer();
         this.init();
-    }
-    createHeader() {
-        const header = document.createElement('div');
-        header.className = 'youtube-summary-header';
-        const left = document.createElement('div');
-        left.className = 'youtube-summary-header-left';
-        const title = document.createElement('span');
-        title.textContent = 'Résumé de la vidéo';
-        left.appendChild(title);
-        const center = document.createElement('div');
-        center.className = 'youtube-summary-header-center';
-        const tabs = document.createElement('div');
-        tabs.className = 'youtube-summary-tabs';
-        const tabItems = [
-            { key: 'summary', icon: ICONS.summary, text: 'Résumé' },
-            { key: 'timestampedSummary', icon: ICONS.key, text: 'Points clés' },
-            { key: 'transcript', icon: ICONS.transcript, text: 'Transcription' }
-        ];
-        tabItems.forEach(({ key, icon, text }) => {
-            const tab = document.createElement('div');
-            tab.className = 'youtube-summary-tab';
-            if (key === this.activeTab) {
-                tab.classList.add('selected');
-            }
-            tab.innerHTML = `${icon} ${text}`;
-            tab.onclick = () => this.switchTab(key);
-            tabs.appendChild(tab);
-        });
-        center.appendChild(tabs);
-        const right = document.createElement('div');
-        right.className = 'youtube-summary-header-right';
-        const topComments = document.createElement('div');
-        topComments.className = 'youtube-summary-action-button';
-        topComments.innerHTML = `${ICONS.comments} Top Comments`;
-        right.appendChild(topComments);
-        header.appendChild(left);
-        header.appendChild(center);
-        header.appendChild(right);
-        return header;
     }
     createButtonContainer() {
         const container = document.createElement('div');
@@ -118,5 +79,9 @@ export class SummaryContainer {
             return;
         const items = this.sections[sectionName];
         this.content.render(items);
+        // Remove the bottom button container when summary is finalized
+        if (this.buttonContainer && this.buttonContainer.parentElement) {
+            this.buttonContainer.parentElement.removeChild(this.buttonContainer);
+        }
     }
 }
