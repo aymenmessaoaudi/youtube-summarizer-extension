@@ -8,8 +8,11 @@
       "skipLibCheck": true,
       "strict": true,
       "types": ["chrome", "node"], // 👈 ici
-      "forceConsistentCasingInFileNames": true
+      "forceConsistentCasingInFileNames": true,
+      "baseUrl": ".",
+      "paths": {
+        "*": ["src/*"]
+      }
     },
     "include": ["src"]
   }
-  
