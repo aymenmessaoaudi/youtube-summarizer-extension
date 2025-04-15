@@ -368,3 +368,260 @@
   height: 100% !important;
   object-fit: cover !important;
 }
+
+/* Eightify-style Header */
+.Header_container__Q1MWC {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 8px 16px !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+  background: #fff !important;
+  flex-shrink: 0 !important;
+  height: 56px !important;
+}
+
+/* Eightify-style icon buttons */
+.youtube-summary-icon-button {
+  width: 40px !important;
+  height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: white !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  margin: 0 4px !important;
+  padding: 0 !important;
+  transition: background-color 0.2s ease !important;
+  color: #111 !important;
+}
+
+.youtube-summary-icon-button:hover {
+  background-color: #f5f5f5 !important;
+}
+
+.dark .youtube-summary-icon-button {
+  background: #2d2d2d !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #e5e7eb !important;
+}
+
+.dark .youtube-summary-icon-button:hover {
+  background-color: #3d3d3d !important;
+}
+
+.youtube-summary-icon-button svg {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+/* Left section with icon buttons */
+.youtube-summary-header-left {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  flex-grow: 0 !important;
+  gap: 4px !important;
+}
+
+/* Center section */
+.youtube-summary-header-center {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-grow: 1 !important;
+}
+
+/* Right section with action buttons */
+.youtube-summary-header-right {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  flex-grow: 0 !important;
+  gap: 8px !important;
+}
+
+.youtube-summary-action-button {
+  width: 36px !important;
+  height: 36px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  color: #666 !important;
+  transition: background-color 0.2s ease !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.youtube-summary-action-button:hover {
+  background-color: #f3f4f6 !important;
+}
+
+.youtube-summary-user-avatar {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  flex-shrink: 0 !important;
+  margin-left: 4px !important;
+}
+
+.youtube-summary-type-selector {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 8px !important;
+}
+
+.youtube-summary-tabs {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 8px !important;
+  background: #f3f4f6 !important;
+  border-radius: 12px !important;
+  padding: 4px !important;
+  margin: 0 auto !important;
+}
+
+.youtube-summary-export-menu {
+  position: absolute !important;
+  top: 50px !important;
+  right: 16px !important;
+  background: white !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  z-index: 1000 !important;
+  width: 200px !important;
+  overflow: hidden !important;
+  display: none !important;
+}
+
+.youtube-summary-export-menu.show {
+  display: block !important;
+}
+
+.youtube-summary-export-header {
+  padding: 8px 16px !important;
+  color: #64748b !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+.youtube-summary-export-divider {
+  height: 1px !important;
+  background: rgba(0, 0, 0, 0.05) !important;
+  margin: 4px 0 !important;
+}
+
+.youtube-summary-export-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 10px 16px !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s ease !important;
+  color: #111 !important;
+  font-size: 14px !important;
+}
+
+.youtube-summary-export-item:hover {
+  background-color: #f3f4f6 !important;
+}
+
+.dark .youtube-summary-export-menu {
+  background: #1a1a1a !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .youtube-summary-export-header {
+  color: #9ca3af !important;
+  border-bottom-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.dark .youtube-summary-export-divider {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.dark .youtube-summary-export-item {
+  color: #e5e7eb !important;
+}
+
+.dark .youtube-summary-export-item:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.youtube-summary-button {
+  background: #FF5733 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 20px !important;
+  padding: 8px 16px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.youtube-summary-button:hover {
+  background: #E64A19 !important;
+}
+
+/* Container for the icon buttons like in Eightify */
+.youtube-summary-icons-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  background: #F3F4F6 !important;
+  border-radius: 12px !important;
+  padding: 4px !important;
+  margin-right: 8px !important;
+}
+
+/* Update icon buttons to fit in container */
+.youtube-summary-icon-button {
+  width: 36px !important;
+  height: 36px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 10px !important;
+  cursor: pointer !important;
+  margin: 0 2px !important;
+  padding: 0 !important;
+  transition: all 0.2s ease !important;
+  color: #666 !important;
+}
+
+.youtube-summary-icon-button:hover {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  color: #000 !important;
+}
+
+.youtube-summary-icon-button.selected {
+  background-color: white !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  color: #000 !important;
+}
+
+.dark .youtube-summary-icons-container {
+  background: #2E2E2E !important;
+}
+
+.dark .youtube-summary-icon-button:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .youtube-summary-icon-button.selected {
+  background-color: #3D3D3D !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
