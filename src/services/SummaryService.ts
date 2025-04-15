@@ -1,4 +1,4 @@
-import { Summary } from '../interfaces/Summary';
+import { Summary, TimestampedItem, TranscriptItem, CommentItem } from '../interfaces/Summary';
 
 export class SummaryService {
   private static instance: SummaryService;
@@ -29,23 +29,30 @@ export class SummaryService {
           .map((line: string) => line.trim())
           .filter((line: string) => line.length > 0);
 
+      // Données mock formatées selon les nouveaux types
+      const timestampedSummaryMock: TimestampedItem[] = [
+        { time: 0, seconds: 0, text: "Introduction" },
+        { time: 30, seconds: 30, text: "Faits importants" },
+        { time: 70, seconds: 70, text: "Analyse politique" }
+      ];
+      
+      const transcriptMock: TranscriptItem[] = [
+        { start: 0, duration: 5, text: "Lorem ipsum dolor sit amet..." },
+        { start: 41, duration: 6, text: "Consectetur adipiscing elit..." },
+        { start: 82, duration: 8, text: "Sed do eiusmod tempor incididunt..." }
+      ];
+      
+      const commentsMock: CommentItem[] = [
+        { author: "UserA", text: "Super vidéo, très instructif !", likes: 42 },
+        { author: "UserB", text: "Excellente analyse des événements.", likes: 27 },
+        { author: "UserC", text: "Merci pour ces explications détaillées.", likes: 15 }
+      ];
+
       return {
         summary: summaryPoints,
-        timestampedSummary: [
-          "00:00 Introduction",
-          "00:30 Faits importants",
-          "01:10 Analyse politique"
-        ],
-        transcript: [
-          "00:00 Lorem ipsum dolor sit amet...",
-          "00:41 Consectetur adipiscing elit...",
-          "01:22 Sed do eiusmod tempor incididunt..."
-        ],
-        comments: [
-          "Super vidéo, très instructif !",
-          "Excellente analyse des événements.",
-          "Merci pour ces explications détaillées."
-        ]
+        timestampedSummary: timestampedSummaryMock,
+        transcript: transcriptMock,
+        comments: commentsMock
       };
     } catch (error) {
       console.error("Erreur lors de la récupération du résumé :", error);

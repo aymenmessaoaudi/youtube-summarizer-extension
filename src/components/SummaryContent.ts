@@ -1,4 +1,7 @@
 import { ICONS } from '../constants';
+import { CommentItem, TimestampedItem, TranscriptItem } from '../interfaces';
+
+type RenderableItem = string | TimestampedItem | TranscriptItem | CommentItem;
 
 export class SummaryContent {
   private element: HTMLDivElement;
@@ -51,8 +54,33 @@ export class SummaryContent {
     this.loadingElement.classList.remove('show');
     this.contentList.style.display = 'block';
   }
+  
+  private formatItem(item: RenderableItem): string {
+    if (typeof item === 'string') {
+      return item;
+    } else if ('time' in item && 'text' in item) {
+      // TimestampedItem
+      const time = this.formatTime(item.time);
+      return `${time} - ${item.text}`;
+    } else if ('start' in item && 'text' in item) {
+      // TranscriptItem
+      const time = this.formatTime(item.start);
+      return `${time} - ${item.text}`;
+    } else if ('author' in item && 'text' in item) {
+      // CommentItem
+      return `${item.author}: ${item.text}`;
+    }
+    
+    return String(item); // Fallback
+  }
+  
+  private formatTime(seconds: number): string {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+  }
 
-  public render(items: string[]): void {
+  public render(items: RenderableItem[]): void {
     this.hideLoading();
     this.contentList.innerHTML = '';
     // Remove loading button if present
@@ -77,7 +105,7 @@ export class SummaryContent {
     items.forEach(item => {
       const li = document.createElement('li');
       li.className = 'youtube-summary-item';
-      li.textContent = item;
+      li.textContent = this.formatItem(item);
       this.contentList.appendChild(li);
     });
   }

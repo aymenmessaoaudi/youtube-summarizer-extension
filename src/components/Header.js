@@ -1,17 +1,18 @@
 export class Header {
     element;
     tabs;
-    onSectionChange;
     exportMenu;
     isExportMenuOpen = false;
-    constructor(onSectionChange) {
+    tabManager = null;
+    onTabChange;
+    constructor(onTabChange) {
         this.element = document.createElement('div');
         this.element.className = 'Header_container__Q1MWC youtube-summary-header';
         this.tabs = document.createElement('div');
         this.tabs.className = 'youtube-summary-tabs';
-        this.onSectionChange = onSectionChange;
         this.exportMenu = document.createElement('div');
         this.exportMenu.className = 'youtube-summary-export-menu';
+        this.onTabChange = onTabChange;
         this.init();
     }
     init() {
@@ -56,16 +57,11 @@ export class Header {
         captionButton.className = 'youtube-summary-icon-button caption-button';
         captionButton.title = 'Transcript';
         captionButton.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 7C2 6.46957 2.21071 5.96086 2.58579 5.58579C2.96086 5.21071 3.46957 5 4 5H20C20.5304 5 21.0391 5.21071 21.4142 5.58579C21.7893 5.96086 22 6.46957 22 7V17C22 17.5304 21.7893 18.0391 21.4142 18.4142C21.0391 18.7893 20.5304 19 20 19H4C3.46957 19 2.96086 18.7893 2.58579 18.4142C2.21071 18.0391 2 17.5304 2 17V7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 9H17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 13H12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-        // Add click handlers to manage selected state
-        const allButtons = [diamondButton, listButton, chatButton, captionButton];
-        allButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Remove selected class from all buttons
-                allButtons.forEach(btn => btn.classList.remove('selected'));
-                // Add selected class to the clicked button
-                button.classList.add('selected');
-            });
-        });
+        // Associer des fonctions aux boutons pour changer d'onglet
+        diamondButton.addEventListener('click', () => this.handleTabClick('summary', diamondButton));
+        listButton.addEventListener('click', () => this.handleTabClick('timestampedSummary', listButton));
+        chatButton.addEventListener('click', () => this.handleTabClick('comments', chatButton));
+        captionButton.addEventListener('click', () => this.handleTabClick('transcript', captionButton));
         // Add all buttons to the container
         iconsContainer.appendChild(diamondButton);
         iconsContainer.appendChild(listButton);
@@ -74,6 +70,16 @@ export class Header {
         // Add the container to the section
         section.appendChild(iconsContainer);
         return section;
+    }
+    // Gestion des clics sur les onglets
+    handleTabClick(tabType, clickedButton) {
+        // Trouve tous les boutons d'onglets et retire la classe 'selected'
+        const allButtons = this.element.querySelectorAll('.youtube-summary-icon-button');
+        allButtons.forEach(button => button.classList.remove('selected'));
+        // Ajoute la classe 'selected' au bouton cliqué
+        clickedButton.classList.add('selected');
+        // Notifie le changement d'onglet
+        this.onTabChange(tabType);
     }
     createCenterSection() {
         const section = document.createElement('div');
