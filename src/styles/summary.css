@@ -369,52 +369,67 @@
   object-fit: cover !important;
 }
 
-/* Eightify-style Header */
+/* Refined Eightify-style Header */
 .Header_container__Q1MWC {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  padding: 8px 16px !important;
+  padding: 12px 20px !important;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
-  background: #fff !important;
+  background: #f9fafb !important;
   flex-shrink: 0 !important;
-  height: 56px !important;
+  height: 64px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
 }
 
-/* Eightify-style icon buttons */
+/* Updated icon buttons */
 .youtube-summary-icon-button {
-  width: 40px !important;
-  height: 40px !important;
+  width: 44px !important;
+  height: 44px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  background: white !important;
+  background: #ffffff !important;
   border: 1px solid rgba(0, 0, 0, 0.1) !important;
   border-radius: 50% !important;
   cursor: pointer !important;
-  margin: 0 4px !important;
+  margin: 0 6px !important;
   padding: 0 !important;
-  transition: background-color 0.2s ease !important;
-  color: #111 !important;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease !important;
+  color: #374151 !important;
 }
 
 .youtube-summary-icon-button:hover {
-  background-color: #f5f5f5 !important;
+  background-color: #f3f4f6 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.youtube-summary-icon-button.selected {
+  background-color: #e5e7eb !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+  color: #1f2937 !important;
+}
+
+.dark .Header_container__Q1MWC {
+  background: #1f2937 !important;
+  border-bottom-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 .dark .youtube-summary-icon-button {
-  background: #2d2d2d !important;
+  background: #374151 !important;
   border-color: rgba(255, 255, 255, 0.1) !important;
-  color: #e5e7eb !important;
+  color: #d1d5db !important;
 }
 
 .dark .youtube-summary-icon-button:hover {
-  background-color: #3d3d3d !important;
+  background-color: #4b5563 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
 }
 
-.youtube-summary-icon-button svg {
-  width: 20px !important;
-  height: 20px !important;
+.dark .youtube-summary-icon-button.selected {
+  background-color: #6b7280 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+  color: #f9fafb !important;
 }
 
 /* Left section with icon buttons */

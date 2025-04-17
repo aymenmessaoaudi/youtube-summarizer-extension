@@ -21,7 +21,7 @@ export class SummaryService {
         body: JSON.stringify({ videoId, targetLang: "fr" }),
       });
       const data = await response.json();
-      
+      console.log("Données de résumé récupérées :", data);
       // Traiter le résumé comme un tableau de points
       const summaryPoints = Array.isArray(data.summary) 
         ? data.summary 
